@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Study Group Curriculum Planner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals (Stone, Teal, Amber) -->
+    <!-- Application Structure Plan: A single-page application using a top navigation bar to switch between content views for each of the 6 curriculum phases. This tab-based structure is chosen because it directly mirrors the linear, progressive nature of the curriculum, allowing users to focus on one phase at a time while still providing easy access to the entire roadmap. It's more intuitive than a long scrollable page for a structured document like this. -->
+    <!-- Visualization & Content Choices: Report Info: 6 Phases of curriculum -> Goal: Show overall structure -> Viz: Top navigation tabs. Report Info: Topics within each phase -> Goal: Inform -> Presentation: Styled HTML tables inside content cards for clarity. Report Info: Ratio of learning vs. practical weeks (4 vs 2) -> Goal: Quick overview of curriculum balance -> Viz: Donut Chart -> Interaction: None, static view -> Justification: Provides a high-level visual summary that's not immediately obvious from the text -> Library: Chart.js/Canvas. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f5f4; /* stone-100 */
+        }
+        .phase-content {
+            display: none;
+        }
+        .phase-content.active {
+            display: block;
+        }
+        .nav-button {
+            transition: all 0.3s ease;
+        }
+        .nav-button.active {
+            background-color: #14b8a6; /* teal-500 */
+            color: white;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="text-stone-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-stone-900">IoT Study Group</h1>
+            <p class="text-lg text-stone-600 mt-2">Interactive Curriculum Roadmap</p>
+        </header>
+
+        <nav class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8">
+            <button data-phase="1" class="nav-button active text-sm md:text-base font-medium py-2 px-4 rounded-full bg-white text-stone-700 shadow-sm hover:bg-stone-200">Phase 1: Foundation</button>
+            <button data-phase="2" class="nav-button text-sm md:text-base font-medium py-2 px-4 rounded-full bg-white text-stone-700 shadow-sm hover:bg-stone-200">Phase 2: Body</button>
+            <button data-phase="3" class="nav-button text-sm md:text-base font-medium py-2 px-4 rounded-full bg-white text-stone-700 shadow-sm hover:bg-stone-200">Phase 3: Brain Pt. 1</button>
+            <button data-phase="4" class="nav-button text-sm md:text-base font-medium py-2 px-4 rounded-full bg-amber-200 text-amber-800 shadow-sm hover:bg-amber-300">Project Week 1</button>
+            <button data-phase="5" class="nav-button text-sm md:text-base font-medium py-2 px-4 rounded-full bg-white text-stone-700 shadow-sm hover:bg-stone-200">Phase 5: Brain Pt. 2</button>
+            <button data-phase="6" class="nav-button text-sm md:text-base font-medium py-2 px-4 rounded-full bg-amber-200 text-amber-800 shadow-sm hover:bg-amber-300">Project Week 2</button>
+        </nav>
+
+        <main id="curriculum-content">
+            <!-- Phase 1 Content -->
+            <div id="phase-1" class="phase-content active">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h2 class="text-2xl font-bold mb-1 text-teal-700">Phase 1: The IoT Foundation</h2>
+                    <p class="text-stone-600 mb-6">This initial phase establishes the conceptual groundwork for the entire curriculum. You will learn what IoT is, why it's important, and the fundamental components that make up any IoT ecosystem. This knowledge is crucial for understanding all subsequent topics.</p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                           <thead>
+                                <tr>
+                                    <th class="border-b-2 border-stone-200 p-3 bg-stone-50 text-sm font-semibold text-stone-600">Focus Area</th>
+                                    <th class="border-b-2 border-stone-200 p-3 bg-stone-50 text-sm font-semibold text-stone-600">Detailed Topics</th>
+                                    <th class="border-b-2 border-stone-200 p-3 bg-stone-50 text-sm font-semibold text-stone-600">Learning Outcome</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-stone-700">
+                                <tr><td class="border-b border-stone-100 p-3">Introduction</td><td class="border-b border-stone-100 p-3">What is IoT? Definition, history, and scope.</td><td class="border-b border-stone-100 p-3">Understand the core concept and ecosystem of IoT.</td></tr>
+                                <tr><td class="border-b border-stone-100 p-3">Context & Need</td><td class="border-b border-stone-100 p-3">Where are IoT devices seen? Why is IoT needed? (Value, Efficiency, Data).</td><td class="border-b border-stone-100 p-3">Identify market segments and the driving need for connected systems.</td></tr>
+                                <tr><td class="border-b border-stone-100 p-3">Anatomy & Analogy</td><td class="border-b border-stone-100 p-3">Analogy of IoT (e.g., Human Body Model).</td><td class="border-b border-stone-100 p-3">Relate complex technical parts to a familiar system for easy recall.</td></tr>
+                                <tr><td class="border-b border-stone-100 p-3">Core Components</td><td class="border-b border-stone-100 p-3">Device/Things, Connectivity, Cloud/Processing, User Interface.</td><td class="border-b border-stone-100 p-3">Identify the four main layers required for any IoT solution.</td></tr>
+                                <tr><td class="p-3">Classification</td><td class="p-3">Classifications of IoT (Consumer, Industrial, Commercial, Military).</td><td class="p-3">Understand the different contexts and scale of IoT applications.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2 Content -->
+            <div id="phase-2" class="phase-content">
+                 <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h2 class="text-2xl font-bold mb-1 text-teal-700">Phase 2: The Body of IoT</h2>
+                    <p class="text-stone-600 mb-6">Here, we explore the "senses" and "muscles" of an IoT device. You'll get hands-on with the physical components that allow a device to interact with the world, learning how sensors gather information and how actuators perform actions based on that information.</p>
+                     <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                           <thead>
+                                <tr>
+                                    <th class="border-b-2 border-stone-200 p-3 bg-stone-50 text-sm font-semibold text-stone-600">Focus Area</th>
+                                    <th class="border-b-2 border-stone-200 p-3 bg-stone-50 text-sm font-semibold text-stone-600">Detailed Topics</th>
+                                    <th class="border-b-2 border-stone-200 p-3 bg-stone-50 text-sm font-semibold text-stone-600">Learning Outcome</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-stone-700">
+                                <tr><td class="border-b border-stone-100 p-3">Input Devices</td><td class="border-b border-stone-100 p-3">Deep dive into Sensors: Types, working principle, output (Analog vs. Digital).</td><td class="border-b border-stone-100 p-3">Differentiate sensor types and how they convert physical phenomena to electrical signals.</td></tr>
+                                <tr><td class="border-b border-stone-100 p-3">Output Devices</td><td class="border-b border-stone-100 p-3">Deep dive into Actuators, Motors, Servos, Relays, LEDs.</td><td class="border-b border-stone-100 p-3">Understand how devices translate electrical signals into physical action.</td></tr>
+                                <tr><td class="border-b border-stone-100 p-3">Data Generation</td><td class="border-b border-stone-100 p-3">How each device operates and sends data (Signal conditioning, Sampling).</td><td class="border-b border-stone-100 p-3">Trace the data path from physical input to a digital representation.</td></tr>
+                                <tr><td class="p-3">Specification Basics</td><td class="p-3">Key Specifications of IoT Components (Power draw, Range, Accuracy, Resolution).</td><td class="p-3">Learn to read datasheets and select appropriate parts.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3 Content -->
+            <div id="phase-3" class="phase-content">
+                 <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h2 class="text-2xl font-bold mb-1 text-teal-700">Phase 3: The Brain (Part 1: Arduino)</h2>
+                     <p class="text-stone-600 mb-6">Every IoT device needs a "brain" to process information and make decisions. In this phase, you'll learn about microcontrollers, starting with the beginner-friendly Arduino platform. You'll write your first programs to control the sensors and actuators from Phase 2.</p>
+                     <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                           <thead>
+                                <tr>
+                                    <th class="border-b-2 border-stone-200 p-3 bg-stone-50 text-sm font-semibold text-stone-600">Focus Area</th>
+                                    <th class="border-b-2 border-stone-200 p-3 bg-stone-50 text-sm font-semibold text-stone-600">Detailed Topics</th>
+                                    <th class="border-b-2 border-stone-200 p-3 bg-stone-50 text-sm font-semibold text-stone-600">Learning Outcome</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-stone-700">
+                                <tr><td class="border-b border-stone-100 p-3">The Processor Role</td><td class="border-b border-stone-100 p-3">The 'Brain' in an IoT environment: Thinking and executing.</td><td class="border-b border-stone-100 p-3">Understand the necessity of a central processing unit (CPU/MCU).</td></tr>
+                                <tr><td class="border-b border-stone-100 p-3">MCU/MPU Fundamentals</td><td class="border-b border-stone-100 p-3">Types of Microcontrollers (MCU) and Microprocessors (MPU). Key Difference.</td><td class="border-b border-stone-100 p-3">Distinguish between MCUs and MPUs.</td></tr>
+                                <tr><td class="border-b border-stone-100 p-3">Arduino Deep Dive</td><td class="border-b border-stone-100 p-3">Introduction to Arduino and the ATMEGA328P chip.</td><td class="border-b border-stone-100 p-3">Identify the main chip and architecture of the entry-level MCU platform.</td></tr>
+                                <tr><td class="border-b border-stone-100 p-3">Working of UNO R3</td><td class="border-b border-stone-100 p-3">Design and working of Arduino UNO R3 (Pin map, I/O ports, Power supply).</td><td class="border-b border-stone-100 p-3">Understand the hardware layout and capabilities of the UNO board.</td></tr>
+                                <tr><td class="border-b border-stone-100 p-3">Basic Implementation</td><td class="border-b border-stone-100 p-3">Implementation of small programs with UNO (Digital Read/Write, Analog Read/PWM).</td><td class="border-b border-stone-100 p-3">Write basic firmware to interact with sensors and actuators.</td></tr>
+                                <tr><td class="border-b border-stone-100 p-3">Protocols (Local)</td><td class="border-b border-stone-100 p-3">Communication protocols in UNO: Serial/UART, I2C, and SPI basics.</td><td class="border-b border-stone-100 p-3">Understand how the MCU communicates with its peripheral components.</td></tr>
+                                <tr><td class="border-b border-stone-100 p-3">Data Processing</td><td class="border-b border-stone-100 p-3">Data processing methods and implementation (Filtering, Averaging, Mapping).</td><td class="border-b border-stone-100 p-3">Implement simple data transformations to clean and utilize sensor data.</td></tr>
+                                <tr><td class="p-3">Application</td><td class="p-3">Usage of UNO to make small projects in daily life applications.</td><td class="p-3">Connect theory to practical, non-networked projects.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 4 Content -->
+            <div id="phase-4" class="phase-content">
+                 <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-amber-400">
+                    <h2 class="text-2xl font-bold mb-1 text-amber-700">Project Week 1: Standalone IoT Projects</h2>
+                     <p class="text-stone-600 mb-6">This is where theory meets practice. You'll apply all the knowledge gained from the first three phases to build a complete, standalone (non-internet-connected) device. This project will solidify your understanding of how hardware and software integrate to create a functional system.</p>
+                     <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                           <thead>
+                                <tr>
+                                    <th class="border-b-2 border-stone-200 p-3 bg-stone-50 text-sm font-semibold text-stone-600">Focus Area</th>
+                                    <th class="border-b-2 border-stone-200 p-3 bg-stone-50 text-sm font-semibold text-stone-600">Detailed Activity</th>
+                                    <th class="border-b-2 border-stone-200 p-3 bg-stone-50 text-sm font-semibold text-stone-600">Deliverable</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-stone-700">
+                                <tr>
+                                    <td class="p-3">Design & Build</td>
+                                    <td class="p-3">Apply knowledge from Phases 1, 2, and 3 to design and implement a standalone project using Arduino UNO and peripherals.</td>
+                                    <td class="p-3">A fully functional, locally operational embedded device (e.g., Simple Weather Station, Line Follower, or Time-based Dispenser).</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 5 Content -->
+            <div id="phase-5" class="phase-content">
+                 <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h2 class="text-2xl font-bold mb-1 text-teal-700">Phase 5: The Connected Brain (Part 2: ESP32)</h2>
+                     <p class="text-stone-600 mb-6">Now it's time to connect your devices to the internet. This phase introduces powerful Wi-Fi-enabled microcontrollers like the ESP32. You will learn how to send data to the cloud, receive commands remotely, and understand the network protocols that make the "Internet of Things" possible.</p>
+                     <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                           <thead>
+                                <tr>
+                                    <th class="border-b-2 border-stone-200 p-3 bg-stone-50 text-sm font-semibold text-stone-600">Focus Area</th>
+                                    <th class="border-b-2 border-stone-200 p-3 bg-stone-50 text-sm font-semibold text-stone-600">Detailed Topics</th>
+                                    <th class="border-b-2 border-stone-200 p-3 bg-stone-50 text-sm font-semibold text-stone-600">Learning Outcome</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-stone-700">
+                                <tr><td class="border-b border-stone-100 p-3">Introduction</td><td class="border-b border-stone-100 p-3">Introduction to ESP32/ESP8266. Why move from Arduino? (Wi-Fi).</td><td class="border-b border-stone-100 p-3">Understand the role of Wi-Fi MCUs in enabling connectivity.</td></tr>
+                                <tr><td class="border-b border-stone-100 p-3">Working & Design</td><td class="border-b border-stone-100 p-3">Working of ESP32/ESP8266. Design, types, and about the main chip.</td><td class="border-b border-stone-100 p-3">Comprehend the architecture differences that enable networking.</td></tr>
+                                <tr><td class="border-b border-stone-100 p-3">Networking Modes</td><td class="border-b border-stone-100 p-3">Modes of ESP32 (Station Mode, Access Point Mode, Dual Mode).</td><td class="border-b border-stone-100 p-3">Configure the device to connect to a network or act as a host.</td></tr>
+                                <tr><td class="border-b border-stone-100 p-3">Protocols (Network)</td><td class="border-b border-stone-100 p-3">Networking protocols: HTTP/HTTPS, MQTT (for lightweight communication).</td><td class="border-b border-stone-100 p-3">Implement software for sending data over the internet.</td></tr>
+                                <tr><td class="border-b border-stone-100 p-3">Connectivity & Apps</td><td class="border-b border-stone-100 p-3">Connectivity and basic Cloud/Server applications (e.g., connecting to a simple API/Dashboard).</td><td class="border-b border-stone-100 p-3">Push sensor data to a remote server and receive commands.</td></tr>
+                                <tr><td class="p-3">Use Cases</td><td class="p-3">Use cases for real-life applications requiring connectivity (Home Automation, Remote Monitoring).</td><td class="p-3">Visualize and plan larger, distributed IoT systems.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 6 Content -->
+            <div id="phase-6" class="phase-content">
+                 <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-amber-400">
+                    <h2 class="text-2xl font-bold mb-1 text-amber-700">Project Week 2: Connected IoT Projects</h2>
+                     <p class="text-stone-600 mb-6">The final challenge! This project week brings everything together. You will build a complete, internet-connected IoT solution from scratch, using an ESP32 to gather sensor data, send it to a cloud service, and potentially allow for remote control of your device.</p>
+                     <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                           <thead>
+                                <tr>
+                                    <th class="border-b-2 border-stone-200 p-3 bg-stone-50 text-sm font-semibold text-stone-600">Focus Area</th>
+                                    <th class="border-b-2 border-stone-200 p-3 bg-stone-50 text-sm font-semibold text-stone-600">Detailed Activity</th>
+                                    <th class="border-b-2 border-stone-200 p-3 bg-stone-50 text-sm font-semibold text-stone-600">Deliverable</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-stone-700">
+                                <tr>
+                                    <td class="p-3">Connected Design</td>
+                                    <td class="p-3">Apply all knowledge to design and implement a fully connected IoT project using ESP32/ESP8266.</td>
+                                    <td class="p-3">A functional, internet-connected device that sends data to a cloud service or can be controlled remotely.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <section class="mt-12 bg-white p-6 rounded-xl shadow-lg">
+             <h2 class="text-2xl font-bold mb-1 text-center text-teal-700">Curriculum Overview</h2>
+             <p class="text-stone-600 mb-6 text-center">This chart shows the balance between theoretical learning phases and hands-on project weeks. Our curriculum is designed to be approximately two-thirds foundational knowledge and one-third practical application.</p>
+             <div class="chart-container">
+                 <canvas id="curriculumChart"></canvas>
+             </div>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const navButtons = document.querySelectorAll('.nav-button');
+            const phaseContents = document.querySelectorAll('.phase-content');
+
+            function switchPhase(phaseNumber) {
+                navButtons.forEach(button => {
+                    button.classList.toggle('active', button.dataset.phase === phaseNumber);
+                });
+
+                phaseContents.forEach(content => {
+                    content.classList.toggle('active', content.id === `phase-${phaseNumber}`);
+                });
+            }
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const phaseNumber = button.dataset.phase;
+                    switchPhase(phaseNumber);
+                });
+            });
+
+            const ctx = document.getElementById('curriculumChart').getContext('2d');
+            const curriculumChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Learning Phases', 'Project Weeks'],
+                    datasets: [{
+                        label: 'Curriculum Structure',
+                        data: [4, 2],
+                        backgroundColor: [
+                            '#0d9488', // teal-600
+                            '#f59e0b'  // amber-500
+                        ],
+                        borderColor: [
+                           '#f5f5f4',
+                           '#f5f5f4'
+                        ],
+                        borderWidth: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: {
+                                    size: 14,
+                                    family: "'Inter', sans-serif"
+                                }
+                            }
+                        },
+                        tooltip: {
+                             bodyFont: {
+                                size: 14,
+                                family: "'Inter', sans-serif"
+                            },
+                             titleFont: {
+                                size: 16,
+                                family: "'Inter', sans-serif"
+                            }
+                        }
+                    }
+                }
+            });
+
+            switchPhase('1');
+        });
+    </script>
+
+</body>
+</html>
