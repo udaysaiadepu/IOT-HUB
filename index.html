@@ -15,11 +15,7 @@
             background-color: #f0f4f8; /* A light, tech-friendly background */
         }
         
-        /* ✅ ADDED: New CSS rule to make the section fade out at the bottom */
-        #welcome-section {
-            mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
-        }
+        /* ✅ REMOVED: #welcome-section mask-image rule */
 
         /* Initial state for the fade-in welcome text */
         #welcome-section h1 {
@@ -89,8 +85,10 @@
                     WELCOME TO IOT HUB
                 </h1>
             </div>
+        </section>
 
-            </section>
+        <div class="w-full h-32 bg-gradient-to-b from-gray-900 to-white"></div>
+
 
         <section class="py-20 bg-white">
             <div class="container mx-auto px-6 text-center">
