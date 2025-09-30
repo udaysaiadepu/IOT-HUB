@@ -15,11 +15,11 @@
             background-color: #f0f4f8; /* A light, tech-friendly background */
         }
         
-        /* ✅ MODIFIED: Mask image directly on the welcome section */
-        #welcome-section {
-            /* The mask will make the blue content and background fade out */
-            mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+        /* ✅ MODIFIED: Removed the mask from the welcome section and applied it to the section below */
+        #discover-section {
+            /* This mask fades in the top of the section, making it appear over the previous one */
+            mask-image: linear-gradient(to bottom, transparent 0%, black 20%);
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%);
         }
 
         /* Initial state for the fade-in welcome text */
@@ -107,7 +107,8 @@
             </div>
         </section>
 
-        <section class="py-20 bg-white">
+        <!-- ✅ MODIFIED: This section now overlaps the one above to create the fade-in effect -->
+        <section id="discover-section" class="py-20 bg-white -mt-24 relative z-10">
             <div class="container mx-auto px-6 text-center">
                 <h2 class="text-4xl font-bold mb-4">Discover the Future of Connectivity</h2>
                 <p class="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -194,3 +195,4 @@
 
 </body>
 </html>
+
