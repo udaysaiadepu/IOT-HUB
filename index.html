@@ -14,6 +14,12 @@
             font-family: 'Inter', sans-serif;
             background-color: #f0f4f8; /* A light, tech-friendly background */
         }
+        
+        /* ✅ ADDED: New CSS rule to make the section fade out at the bottom */
+        #welcome-section {
+            mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+        }
 
         /* Initial state for the fade-in welcome text */
         #welcome-section h1 {
@@ -84,8 +90,7 @@
                 </h1>
             </div>
 
-            <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent via-transparent to-white"></div>
-        </section>
+            </section>
 
         <section class="py-20 bg-white">
             <div class="container mx-auto px-6 text-center">
