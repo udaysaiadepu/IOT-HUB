@@ -15,7 +15,12 @@
             background-color: #f0f4f8; /* A light, tech-friendly background */
         }
         
-        /* ✅ REMOVED: #welcome-section mask-image rule */
+        /* ✅ MODIFIED: Mask image directly on the welcome section */
+        #welcome-section {
+            /* The mask will make the blue content and background fade out */
+            mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+        }
 
         /* Initial state for the fade-in welcome text */
         #welcome-section h1 {
@@ -86,9 +91,6 @@
                 </h1>
             </div>
         </section>
-
-        <div class="w-full h-32 bg-gradient-to-b from-gray-900 to-white"></div>
-
 
         <section class="py-20 bg-white">
             <div class="container mx-auto px-6 text-center">
